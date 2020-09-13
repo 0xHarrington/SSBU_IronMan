@@ -1,2 +1,2 @@
 # SSBU_IronMan
-Assorted programs for a PvP Iron Man game mode
+Small python scripts to help facilitate a balanced 1v1 Iron Man format in Super Smash Brothers Ultimate.
