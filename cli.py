@@ -9,26 +9,6 @@ import numpy as np
 
 
 class IronMan:
-    def get_characters(self):
-        resp = requests.get('https://supersmashbros.fandom.com/wiki/List_of_Super_Smash_Bros._series_characters')
-        soup = bs.BeautifulSoup(resp.text, 'lxml')
-        table = soup.find('table', {'class': 'wikitable sortable'})
-        ret = {}
-        for row in table.findAll('tr')[1:]:
-            info = row.findAll('td')
-            try:
-                name = info[1].find('small').text
-                number = int(info[0].text)
-                photo_link = info[1].find('a', {'class': 'image image-thumbnail'})['href']
-                ret[number] = {'name': name, 'photo': photo_link}
-            except:
-                continue
-
-        chars = []
-        for (key, value) in ret.items():
-            chars.append(value['name'])
-        print(chars)
-        return ret
 
     def choose_chars(self):
         ret = []
@@ -44,10 +24,19 @@ class IronMan:
     def __init__(self, player1, player2, n_chars, include_dlc = False):
 
         # Deprecated
-        # self.ALL_CHARS = self.get_characters()
-        self.ALL_CHARS = ['Mario', 'Donkey Kong', 'Link', 'Samus', 'Yoshi', 'Kirby', 'Fox', 'Pikachu', 'Luigi', 'Ness', 'Captain Falcon', 'Jigglypuff', 'Peach', 'Bowser', 'Ice Climbers', 'Sheik', 'Zelda', 'Dr. Mario', 'Pichu', 'Falco', 'Marth', 'Young Link', 'Ganondorf', 'Mewtwo', 'Roy', 'Mr. Game & Watch', 'Meta Knight', 'Pit', 'Zero Suit Samus', 'Wario', 'Snake', 'Ike', 'Pokemon Trainer', 'Diddy Kong', 'Lucas', 'Sonic', 'King Dedede', 'Olimar', 'Lucario', 'R.O.B.', 'Toon Link', 'Wolf', 'Villager', 'Mega Man', 'Wii Fit Trainer', 'Rosalina & Luma', 'Little Mac', 'Greninja', 'Mii Brawler', 'Mii Swordfighter', 'Mii Gunner', 'Palutena', 'Pac-Man', 'Robin', 'Shulk', 'Bowser Jr.', 'Duck Hunt', 'Ryu', 'Cloud', 'Corrin', 'Bayonetta', 'Inkling', 'Ridley', 'Simon', 'King K. Rool', 'Isabelle', 'Incineroar', 'Piranha Plant', 'Joker', 'Hero', 'Banjo & Kazooie', 'Terry', 'Byleth', 'Min Min']
+        self.ALL_CHARS = ['Mario', 'Donkey Kong', 'Link', 'Samus', 'Yoshi', 'Kirby', 'Fox', 'Pikachu', 'Luigi', 'Ness',
+                          'Captain Falcon', 'Jigglypuff', 'Peach', 'Bowser', 'Ice Climbers', 'Sheik', 'Zelda',
+                          'Dr. Mario', 'Pichu', 'Falco', 'Marth', 'Young Link', 'Ganondorf', 'Mewtwo', 'Roy',
+                          'Mr. Game & Watch', 'Meta Knight', 'Pit', 'Zero Suit Samus', 'Wario', 'Snake', 'Ike',
+                          'Pokemon Trainer', 'Diddy Kong', 'Lucas', 'Sonic', 'King Dedede', 'Olimar', 'Lucario',
+                          'R.O.B.', 'Toon Link', 'Wolf', 'Villager', 'Mega Man', 'Wii Fit Trainer', 'Rosalina & Luma',
+                          'Little Mac', 'Greninja', 'Mii Brawler', 'Mii Swordfighter', 'Mii Gunner', 'Palutena',
+                          'Pac-Man', 'Robin', 'Shulk', 'Bowser Jr.', 'Duck Hunt', 'Ryu', 'Cloud', 'Corrin', 'Bayonetta',
+                          'Inkling', 'Ridley', 'Simon', 'King K. Rool', 'Isabelle', 'Incineroar', 'Piranha Plant',
+                          'Joker', 'Hero', 'Banjo & Kazooie', 'Terry', 'Byleth', 'Min Min', 'Steve', 'Sephiroth',
+                          'Pyra/Mythra', 'Kazuya', 'Sora']
         if not include_dlc:
-            self.ALL_CHARS = self.ALL_CHARS[:-7]
+            self.ALL_CHARS = self.ALL_CHARS[:-11]
 
         self.n_chars = int(n_chars)
         self.p1 = player1
@@ -88,8 +77,8 @@ class IronMan:
 
 def main(argv):
     iron_man_start = time.time()
-    sesh = IronMan(argv[0], argv[1], argv[2])
-    
+    sesh = IronMan(argv[0], argv[1], argv[2], True)
+
     time.time() - iron_man_start
 
 if __name__ == "__main__":
